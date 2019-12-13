@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import time
 
 
@@ -29,7 +30,7 @@ while True:
                     #Store those 2 values in a .txt
                     print("\nUser %s created successfuly! Going back to menu...\n" % username)
                     time.sleep(2.5)
-                    user = ("%s - %s\n" % (username, password))
+                    user = ("%s-%s\n" % (username, password))
                     with open("users.txt", "a") as usersfile:
                         usersfile.write(user)
                         usersfile.close()
@@ -43,12 +44,25 @@ while True:
         elif (regorLog == "l") or (regorLog == "L"):
         #Elif Login
             #Ask for the username and password
-            logUser = input("Username: ")
-            #Checks if the username exists
-            #Checks if the password matches the username selected
-            logPass = input("Password: ")
-            #Gets access
-            asking = False
 
+            #Checks if the username exists
+            with open("users.txt") as usersfile:
+                logUser = input("Username: ")
+                readLine = usersfile.readlines()
+
+                for x in range(len(readLine)):
+                    if (logUser == readLine[x].split("-")[0]):
+                        print("Ok")
+                        while True:
+                            logPass = input("Password: ")
+                            #Checks if the password matches the username selected
+                            if (logPass == readLine[x].rstrip().split("-")[1]):
+                                #Gets access
+                                print("UEUEUEUEUUEUE")
+                                break
+                            else:
+                                print("Incorrect password, try again")
+
+            break
         else:
             print("That's not a valid answer\n")
