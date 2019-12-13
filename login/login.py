@@ -18,6 +18,8 @@ while True:
         if (regorLog == "r") or (regorLog == "R"):
         #If Register
             #Ask for username and password
+            #Username loop
+            #If username already exists, ask for another one
             username = input("Username: ")
             #Make the user repeat the password
             while True:
@@ -41,7 +43,11 @@ while True:
         elif (regorLog == "l") or (regorLog == "L"):
         #Elif Login
             #Ask for the username and password
-            #Access the contents
+            logUser = input("Username: ")
+            #Checks if the username exists
+            #Checks if the password matches the username selected
+            logPass = input("Password: ")
+            #Gets access
             asking = False
 
         else:
