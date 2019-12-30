@@ -12,11 +12,11 @@ time.sleep(2)
 options = ["Rock", "Paper", "Scissors"]
 loseCount = 0
 winCount = 0
-askAgain = False
 gameOver = False
 
 #Main game loop
 while True:
+    askAgain = False
     #We randomly generate the computer's choice
     aiChoice = random.randint(0,2)
 
