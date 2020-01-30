@@ -11,20 +11,20 @@ winner = False
 print ("""
 ######################################################################
 #                                                                    #
-#                         WELCOME MESSAGE                            #
+#                         wenas, ahorcado                            #
 #                                                                    #
 ######################################################################
 """)
 while True: #Setting difficulty loop
     lives = input("Set difficulty level (Easy/Medium/Hard): ")
     if ((lives == 'e') or (lives == 'E') or (lives == 'easy') or (lives == 'Easy')):
-        lives = 7
+        lives = 10
         break
     elif ((lives == 'm') or (lives == 'M') or (lives == 'medium') or (lives == 'Medium')):
-        lives = 5
+        lives = 7
         break
     elif ((lives == 'h') or (lives == 'H') or (lives == 'hard') or (lives == 'Hard')):
-        lives = 3
+        lives = 5
         break
 print("\nYou have %d lives" % lives)
 time.sleep(1)
