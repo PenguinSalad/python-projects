@@ -1,0 +1,13 @@
+ camille = {
+            "name": "camille",
+            "diff": 8,
+            "rune1": "conqueror",
+            "rune2": "triumph",
+            "rune3": "alacrity",
+            "rune4": "coup",
+            "rune5": "bone plating",
+            "rune6": "overgrowth",
+            "armMr": "armor",
+            "starting": "dorans blade",
+            "coreItems": "black cleaver",
+        } 
