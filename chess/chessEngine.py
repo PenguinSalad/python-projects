@@ -30,6 +30,21 @@ class GameState():
         self.whiteToMove = not self.whiteToMove #Canvi de torn
 
 
+
+    def undoMove(self):
+        if (len(self.moveLog) > 0):
+            moveToUndo = self.moveLog[-1] #Get last move
+            startSq = (moveToUndo.startRow, moveToUndo.startCol) #Get the last move's start square
+            endSq = (moveToUndo.endRow, moveToUndo.endCol) #Get the last move's end square
+            undoMovement = Move(endSq, startSq, self.board) #Create a move object with the reversed move squares
+
+            self.makeMove(undoMovement) #Make the undo move
+        else:
+            #No more moves stored in moveLog 
+            pass
+              
+
+
 class Move():
 
     ranksToRows = {"1": 7, "2": 6, "3": 5, "4": 4,
