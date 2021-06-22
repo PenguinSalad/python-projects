@@ -7,7 +7,7 @@ import time
 
 mutex = threading.Lock()
 
-tree = list(open('tree.txt').read().rstrip())
+tree = list(open('./tree.txt').read().rstrip())
 
 def colored_dot(color):
     if color == 'red':
