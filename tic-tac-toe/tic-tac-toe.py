@@ -82,7 +82,7 @@ def computerMove(logicBoard, computerSign, playerSign):
                 copyBoard[i][j] = computerSign #Place computer sign and check if we win
                 if checkWin(copyBoard):
                     squareValue = [i, j] #If it's a winning move, return it
-                    print("Winning move")
+                    # print("Winning move")
                     return squareValue
 
     # 2. Check if it can block a player's winning move:
@@ -94,7 +94,7 @@ def computerMove(logicBoard, computerSign, playerSign):
                 copyBoard[i][j] = playerSign #Place player sign and check if we win
                 if checkWin(copyBoard):
                     squareValue = [i, j] #If it's a player's winning move, block it
-                    print("Block move")
+                    # print("Block move")
                     return squareValue
 
 
@@ -106,14 +106,14 @@ def computerMove(logicBoard, computerSign, playerSign):
     while True:
         chosenCorner = corners[random.randint(0, 3)] #Choose a random corner
         if logicBoard[chosenCorner[0]][chosenCorner[1]] == '-': #Check if it's empty
-            print("Corner move")
+            # print("Corner move")
             return chosenCorner
 
     # 4. Check center
 
     if logicBoard[1][1] == '-': #If the center is empty, place there
         squareValue = [1, 1]
-        print("Center move")
+        # print("Center move")
         return squareValue
 
     # 5. Check sides
@@ -123,7 +123,7 @@ def computerMove(logicBoard, computerSign, playerSign):
     while True:
         chosenSide = sides[random.randint(0, 3)] #Choose a random side
         if logicBoard[chosenSide[0]][chosenSide[1]] == '-': #Check if it's empty
-            print("Side move")
+            # print("Side move")
             return chosenSide
 
 
