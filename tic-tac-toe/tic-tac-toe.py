@@ -1,5 +1,7 @@
 import random
 
+from copy import copy, deepcopy
+
 board = ''' 
    a     b     c
       |     |     
@@ -31,7 +33,6 @@ def blankBoard():
 def currentBoard():
     return (board % (logicBoard[0][0], logicBoard[0][1], logicBoard[0][2], logicBoard[1][0], logicBoard[1][1], logicBoard[1][2], logicBoard[2][0], logicBoard[2][1], logicBoard[2][2]))
 
-#print(currentBoard())
 
 def playerMove():
     while True:
@@ -60,12 +61,72 @@ def playerMove():
     return squareValue
 
 
-def computerMove():
+def computerMove(logicBoard, computerSign, playerSign):
+    ###Random movement:
+   
+    # while True:
+    #     squareValue = [random.randint(0, 2), random.randint(0, 2)]
+    #     if logicBoard[squareValue[0]][squareValue[1]] == '-':
+    #         break
+    # return squareValue
+
+
+    ###Logical movement:
+
+    # 1. Check if there's a possible winning move:
+
+    for i in range(3):
+        for j in range(3): #Loop through the board
+            copyBoard = deepcopy(logicBoard)    #Create a copy    
+            if copyBoard[i][j] == '-': #If the cell is empty:
+                copyBoard[i][j] = computerSign #Place computer sign and check if we win
+                if checkWin(copyBoard):
+                    squareValue = [i, j] #If it's a winning move, return it
+                    print("Winning move")
+                    return squareValue
+
+    # 2. Check if it can block a player's winning move:
+
+    for i in range(3):
+        for j in range(3): #Loop through the board
+            copyBoard = deepcopy(logicBoard) #Create a copy    
+            if copyBoard[i][j] == '-': #If the cell is empty:
+                copyBoard[i][j] = playerSign #Place player sign and check if we win
+                if checkWin(copyBoard):
+                    squareValue = [i, j] #If it's a player's winning move, block it
+                    print("Block move")
+                    return squareValue
+
+
+
+    # 3. Check corners
+
+    corners = [[0,0], [0,2], [2,0], [2,2]] #Corner positions in board
+
     while True:
-        squareValue = [random.randint(0, 2), random.randint(0, 2)]
-        if logicBoard[squareValue[0]][squareValue[1]] == '-':
-            break
-    return squareValue
+        chosenCorner = corners[random.randint(0, 3)] #Choose a random corner
+        if logicBoard[chosenCorner[0]][chosenCorner[1]] == '-': #Check if it's empty
+            print("Corner move")
+            return chosenCorner
+
+    # 4. Check center
+
+    if logicBoard[1][1] == '-': #If the center is empty, place there
+        squareValue = [1, 1]
+        print("Center move")
+        return squareValue
+
+    # 5. Check sides
+
+    sides = [[0,1], [1,0], [1,2], [2,1]] #Sides positions in board
+
+    while True:
+        chosenSide = sides[random.randint(0, 3)] #Choose a random side
+        if logicBoard[chosenSide[0]][chosenSide[1]] == '-': #Check if it's empty
+            print("Side move")
+            return chosenSide
+
+
 
 def whoStarts():
     while True:
@@ -83,10 +144,10 @@ def whoStarts():
             print("Wrong input")
 
 
-def checkWin():
+def checkWin(board):
 
-    if (logicBoard[0][0] == logicBoard[0][1] == logicBoard[0][2]) and (logicBoard[0][0] != '-'): 
-        print("You win, %s" % logicBoard[0][0])
+    if (board[0][0] == board[0][1] == board[0][2]) and (board[0][0] != '-'): 
+        print("You win, %s" % board[0][0])
         return True
 
         #    a     b     c
@@ -101,8 +162,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[1][0] == logicBoard[1][1] == logicBoard[1][2]) and (logicBoard[1][0] != '-'):
-        print("You win, %s" % logicBoard[1][0])
+    elif (board[1][0] == board[1][1] == board[1][2]) and (board[1][0] != '-'):
+        print("You win, %s" % board[1][0])
         return True
 
         #    a     b     c
@@ -117,8 +178,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[2][0] == logicBoard[2][1] == logicBoard[2][2]) and (logicBoard[2][0] != '-'):
-        print("You win, %s" % logicBoard[2][0])
+    elif (board[2][0] == board[2][1] == board[2][2]) and (board[2][0] != '-'):
+        print("You win, %s" % board[2][0])
         return True
 
         #    a     b     c
@@ -133,8 +194,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[0][0] == logicBoard[1][0] == logicBoard[2][0]) and (logicBoard[0][0] != '-'):
-        print("You win, %s" % logicBoard[0][0])
+    elif (board[0][0] == board[1][0] == board[2][0]) and (board[0][0] != '-'):
+        print("You win, %s" % board[0][0])
         return True
 
         #    a     b     c
@@ -149,8 +210,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[0][1] == logicBoard[1][1] == logicBoard[2][1]) and (logicBoard[0][1] != '-'):
-        print("You win, %s" % logicBoard[0][1])
+    elif (board[0][1] == board[1][1] == board[2][1]) and (board[0][1] != '-'):
+        print("You win, %s" % board[0][1])
         return True
 
         #    a     b     c
@@ -165,8 +226,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[0][2] == logicBoard[1][2] == logicBoard[2][2]) and (logicBoard[0][2] != '-'):
-        print("You win, %s" % logicBoard[0][2])
+    elif (board[0][2] == board[1][2] == board[2][2]) and (board[0][2] != '-'):
+        print("You win, %s" % board[0][2])
         return True
 
         #    a     b     c
@@ -181,8 +242,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[0][0] == logicBoard[1][1] == logicBoard[2][2]) and (logicBoard[0][0] != '-'):
-        print("You win, %s" % logicBoard[0][0])
+    elif (board[0][0] == board[1][1] == board[2][2]) and (board[0][0] != '-'):
+        print("You win, %s" % board[0][0])
         return True
 
         #    a     b     c
@@ -197,8 +258,8 @@ def checkWin():
         #       |     |     
 
 
-    elif (logicBoard[0][2] == logicBoard[1][1] == logicBoard[2][0]) and (logicBoard[0][2] != '-'):
-        print("You win, %s" % logicBoard[0][2])
+    elif (board[0][2] == board[1][1] == board[2][0]) and (board[0][2] != '-'):
+        print("You win, %s" % board[0][2])
         return True
 
         #    a     b     c
@@ -212,7 +273,7 @@ def checkWin():
         # 3  X  |  -  |  -  
         #       |     |     
     
-    elif not any('-' in x for x in logicBoard): #If there's no empty spaces in the board, it's a tie.
+    elif not any('-' in x for x in board): #If there's no empty spaces in the board, it's a tie.
         print("It's a tie!")
         return True
 
@@ -232,14 +293,14 @@ def main():
         if turnOrder[i] == playerSign: #If its the players turn:
             squareValue = playerMove()
         elif turnOrder[i] == computerSign: #If its the machines turn:
-            squareValue = computerMove()
+            squareValue = computerMove(logicBoard,computerSign, playerSign)
 
         
 
         logicBoard[squareValue[0]][squareValue[1]] = turnOrder[i] #Change the chosen cell to be the current player/machine sign
         print(currentBoard())
         
-        if checkWin():
+        if checkWin(logicBoard):
             break
 
         if i == 0: #Change turn
